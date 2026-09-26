@@ -841,3 +841,39 @@ form input[type="password"]:focus {
 }
 
 }
+/* Mobile Text Fix */
+*{
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+img{
+    max-width:100%;
+    height:auto;
+}
+
+button,
+input,
+select,
+textarea{
+    max-width:100%;
+}
+
+h1,h2,h3,h4,h5,h6,p,span,a,small{
+    word-break: break-word;
+}
+
+.scheme-card,
+.action-card,
+.ai-banner,
+.profile-form,
+.document-item{
+    width:100%;
+    overflow:hidden;
+}
+
+.scheme-description,
+.scheme-tags,
+.scheme-info p{
+    white-space:normal;
+}
