@@ -1,27 +1,26 @@
 from fastapi import APIRouter
-from openai import OpenAI
+import google.generativeai as genai
 from dotenv import load_dotenv
 from pathlib import Path
 import os
 
-# Load .env for local development
+# Load .env from backend folder
 BASE_DIR = Path(__file__).resolve().parents[2]
 load_dotenv(BASE_DIR / ".env")
 
-# Read API key from Render Environment Variables or .env
-api_key = os.getenv("OPENAI_API_KEY")
+api_key = os.getenv("GEMINI_API_KEY")
 
 if not api_key:
-    raise RuntimeError(
-        "OPENAI_API_KEY not found. Please set it in Render Environment Variables or backend/.env"
-    )
+    raise RuntimeError("GEMINI_API_KEY not found")
+
+genai.configure(api_key=api_key)
+
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 router = APIRouter(
     prefix="/ai",
     tags=["Eligify AI"]
 )
-
-client = OpenAI(api_key=api_key)
 
 SYSTEM_PROMPT = """
 You are Eligify AI, an AI assistant for marginalized entrepreneurs.
@@ -43,14 +42,12 @@ to be verified from official sources.
 @router.post("/chat")
 def chat(message: str):
     try:
-        response = client.responses.create(
-            model="gpt-5.6",
-            instructions=SYSTEM_PROMPT,
-            input=message
-        )
+        prompt = f"{SYSTEM_PROMPT}\n\nUser: {message}"
+
+        response = model.generate_content(prompt)
 
         return {
-            "reply": response.output_text,
+            "reply": response.text,
             "status": "success"
         }
 
