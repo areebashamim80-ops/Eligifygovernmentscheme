@@ -877,3 +877,37 @@ h1,h2,h3,h4,h5,h6,p,span,a,small{
 .scheme-info p{
     white-space:normal;
 }
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
+    height:auto;
+}
+
+h1,h2,h3,h4,h5,h6,p,span,a,button{
+    word-wrap:break-word;
+    overflow-wrap:break-word;
+}
+
+input,
+select,
+textarea,
+button{
+    width:100%;
+    max-width:100%;
+}
+
+.scheme-card,
+.action-card,
+.ai-banner,
+.profile-form,
+.document-item{
+    width:100%;
+    overflow:hidden;
+}
