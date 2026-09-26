@@ -11,4 +11,6 @@ pymysql
 requests
 pandas
 openpyxl
-openai
+git add .
+git commit -m "Switch to Gemini AI"
+git push
