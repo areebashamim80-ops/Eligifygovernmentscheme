@@ -11,4 +11,4 @@ pymysql
 requests
 pandas
 openpyxl
-Gemini AI
+google-generativeai
