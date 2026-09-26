@@ -4,14 +4,17 @@ from dotenv import load_dotenv
 from pathlib import Path
 import os
 
-# Load .env from backend folder
+# Load .env for local development
 BASE_DIR = Path(__file__).resolve().parents[2]
 load_dotenv(BASE_DIR / ".env")
 
+# Read API key from Render Environment Variables or .env
 api_key = os.getenv("OPENAI_API_KEY")
 
 if not api_key:
-    raise RuntimeError("OPENAI_API_KEY not found in backend/.env")
+    raise RuntimeError(
+        "OPENAI_API_KEY not found. Please set it in Render Environment Variables or backend/.env"
+    )
 
 router = APIRouter(
     prefix="/ai",
@@ -20,12 +23,7 @@ router = APIRouter(
 
 client = OpenAI(api_key=api_key)
 
-@router.post("/chat")
-def chat(message: str):
-    try:
-        response = client.responses.create(
-            model="gpt-5.6-luna",
-            instructions="""
+SYSTEM_PROMPT = """
 You are Eligify AI, an AI assistant for marginalized entrepreneurs.
 
 Help entrepreneurs understand government schemes,
@@ -40,7 +38,14 @@ benefits, documents, deadlines or application links.
 When verified scheme data is not available,
 clearly say that scheme-specific information needs
 to be verified from official sources.
-""",
+"""
+
+@router.post("/chat")
+def chat(message: str):
+    try:
+        response = client.responses.create(
+            model="gpt-5.6",
+            instructions=SYSTEM_PROMPT,
             input=message
         )
 
