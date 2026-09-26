@@ -29,11 +29,11 @@ function AIChatbot() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/ai/chat?message=${encodeURIComponent(userMessage)}`,
-        {
-          method: 'POST'
-        }
-      )
+  `https://eligifygovernmentscheme-3.onrender.com/ai/chat?message=${encodeURIComponent(userMessage)}`,
+  {
+    method: 'POST'
+  }
+)
 
       const data = await response.json()
 

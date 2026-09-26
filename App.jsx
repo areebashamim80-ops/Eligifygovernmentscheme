@@ -19,11 +19,11 @@ function App() {
     try {
 
       const response = await fetch(
-        `http://127.0.0.1:8000/auth/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
-        {
-          method: "POST",
-        }
-      )
+  `https://eligifygovernmentscheme-3.onrender.com/auth/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
+  {
+    method: "POST",
+  }
+)
 
 
       const data = await response.json()
